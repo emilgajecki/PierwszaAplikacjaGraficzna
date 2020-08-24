@@ -19,15 +19,20 @@ public class AplikacjaGraficzna  extends Application {
     @Override
     public void start(Stage primaryStage)  {
         //Stage - główne okno wyjściowe aplikcaji
-        //Scene -
+        //Scene - to jak jakby płótno na którym bedziemy rysować obiekty
         //StackPane - root
-        //Text -
+
+
+        //Controls - kontrolki (noody - węzły)
         Text text = new Text("Teks z pierwszej aplikacji graficznej");
         Button button = new Button("Moj piewszy przycisk");
         Text textDrugi = new Text("Tekst drugi");
 
         // Storage -> Scene -> StackPane -> Text
+
         // do roota dodajemy zawsze wszystkie dzieci (dodtki)
+
+        // do ukladania kontrolek na sobie
         //StackPane root = new StackPane();
 
         //horizontal box - elementy sa wyrysowywane kolo siebie
@@ -35,7 +40,6 @@ public class AplikacjaGraficzna  extends Application {
 
         //sa one z gory na dol
         VBox root = new VBox();
-
         root.getChildren().add(text);
         root.getChildren().add(button);
         root.getChildren().add(textDrugi);
