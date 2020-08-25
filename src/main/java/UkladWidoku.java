@@ -1,5 +1,6 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -81,6 +82,32 @@ public class UkladWidoku extends Application {
         // zmiana elemento, ktr maja byc wyrysowane - np w kotrym miejscu maja sie stykac
         stackPane.setAlignment(Pos.TOP_CENTER);
         stackPane.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        ////////////////////////////////
+
+        ////////////FLOWPANE///////////
+        // MOZEMY UKLADAC PIONOW, POZMIOMO, ALE JEZELI NIE
+        // STARCZY MIEJSCA JEST PRZEKLADANE DO NASTEPNEJ KOLUMNY\WIERSZA
+        ImageView pizzaCzterySery = new ImageView(new Image("obrazki/pizza/pizza-cztery-sery.png"));
+        //ImageView pizzaCzterySeryDuza = new ImageView(new Image("obrazki/pizza/pizza-cztery-sery-duza.png"));
+        ImageView pizzaFunghi = new ImageView(new Image("obrazki/pizza/pizza-funghi.png"));
+        ImageView pizzaMargaritta = new ImageView(new Image("obrazki/pizza/pizza-margaritta.png"));
+        ImageView pizzaMexicana = new ImageView(new Image("obrazki/pizza/pizza-mexicana.png"));
+        ImageView pizzaPepperoni = new ImageView(new Image("obrazki/pizza/pizza-pepperoni.png"));
+        ImageView pizzaSalami = new ImageView(new Image("obrazki/pizza/pizza-salami.png"));
+
+        FlowPane flowPane = new FlowPane();
+        flowPane.getChildren().
+                addAll(pizzaCzterySery,pizzaFunghi,pizzaMargaritta,pizzaMexicana,pizzaPepperoni,pizzaSalami );
+        //ustawianie orientacji - domyslnie horyzontalnie
+        flowPane.setOrientation(Orientation.HORIZONTAL);
+        //aby zmienialy - przeskakiwaly do kolumny lub wiersza nalezy ustalic wielkosc
+        flowPane.setMaxWidth(150);
+        //odleglosci miedzy obrazkami
+        flowPane.setHgap(5);
+        flowPane.setVgap(10);
+        // marginesu
+        flowPane.setPadding(new Insets(10));
+        ////////////////////////////////
 
         /////////BORDERPANE/////////////
         // ustawienie elementow na gora,dol,lewo,prawo
@@ -88,6 +115,7 @@ public class UkladWidoku extends Application {
         borderPane.setTop(hbox);
         borderPane.setLeft(vbox);
         borderPane.setCenter(stackPane);
+        borderPane.setRight(flowPane);
 //        TextField textField = new TextField("Gora");
 //        borderPane.setTop(textField);
 //        TextField textField1 = new TextField("Dol");
