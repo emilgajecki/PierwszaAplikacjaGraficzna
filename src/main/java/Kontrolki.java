@@ -5,6 +5,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -70,14 +72,39 @@ public class Kontrolki extends Application{
             public void handle(ActionEvent event) {
                 System.out.println("Klikam!");
                 button.setText("po kliknieciu zmienam nazwe na inna");
+                // w tym miejcsu po kliknieciu wyląłczamy przycisk
+                button.setDisable(true);
+
 
             }
         });
         //////////////////////////////////////////////////////////////////
 
+        //////////////////////////TEXTFIELD//////////////////////////////
+        // KONTROLKA DO WPISYWANIA TEKTU
+        TextField textField = new TextField();
+        // podpowiadanie co ma wpisac
+        textField.setPromptText("wpisz e-mail");
+        // maksymalna ilosc znakwo
+        textField.setPrefColumnCount(20);
+        textField.setLayoutX(20);
+        textField.setLayoutY(130);
+        /////////////////////////////////////////////////////////////////
+
+        ////////////////////////PASSWORDFIELD////////////////////////////
+        //sekcja do wpisywania hasla
+        PasswordField passwordField = new PasswordField();
+        //ustawianie podpowiedzi
+        passwordField.setPromptText("Wpisz haslo");
+        passwordField.setLayoutX(30);
+        passwordField.setLayoutX(100);
+        ////////////////////////////////////////////////////////////////
+
         Group group = new Group();
         group.getChildren().add(label);
         group.getChildren().add(button);
+        group.getChildren().add(textField);
+        group.getChildren().add(passwordField);
         //group.getChildren().add(imageView);
 
         // tutaj mozęmy okreslic rozmiar
