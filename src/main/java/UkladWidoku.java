@@ -1,5 +1,6 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -59,13 +60,34 @@ public class UkladWidoku extends Application {
         VBox vbox = new VBox();
         // kolejnosc ma znaczenie - w takiej kolejnosci zostana dodane
         vbox.getChildren().addAll(pizzaLabel,hamburgerLabel,napojeLabel);
+        // odstepu po miedzy dodanymi elementami
+        vbox.setSpacing(10);
+        //wewnetrzny magrines
+        vbox.setPadding(new Insets(20));
+        //utworzenie koloru
+        vbox.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         ////////////////////////////////
+
+        ////////////STACKPANE///////////
+        // UKLADA JEDEN NA DRUGIM - STOS
+        // obrazek a na nim opis
+        ImageView pizzaDuzaImageView = new ImageView(new Image("obrazki/pizza/pizza-cztery-sery-duza.png"));
+        Label opisLabel = new Label("Pizza cztery sery składa sie z 4 serów");
+        // zmiana koloru Labelki
+        opisLabel.setTextFill(Color.WHITE);
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(pizzaDuzaImageView,opisLabel);
+        // zmiana elemento, ktr maja byc wyrysowane - np w kotrym miejscu maja sie stykac
+        stackPane.setAlignment(Pos.TOP_CENTER);
+        stackPane.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
         /////////BORDERPANE/////////////
         // ustawienie elementow na gora,dol,lewo,prawo
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(hbox);
         borderPane.setLeft(vbox);
+        borderPane.setCenter(stackPane);
 //        TextField textField = new TextField("Gora");
 //        borderPane.setTop(textField);
 //        TextField textField1 = new TextField("Dol");
