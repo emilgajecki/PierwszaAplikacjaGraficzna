@@ -124,7 +124,7 @@ public class Kontrolki extends Application{
 
         ////////////////////RadioButton/////////////////////////////////
         // służy do wielu zaznaczan np do ankiet (wiele wyborów)
-        RadioButton radioButtonPierwszy = new RadioButton("Wybór pierwszy");
+        RadioButton radioButtonPierwszy = new RadioButton("wybor pierwszy");
         radioButtonPierwszy.setLayoutX(180);
         radioButtonPierwszy.setLayoutY(70);
         // tak jak w checkBox - isSelected () i setSelected()
@@ -142,11 +142,37 @@ public class Kontrolki extends Application{
         toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-
+                // netoda reagujaca na zmiane - informuje nas o zmianie
+                RadioButton wybrany = (RadioButton) newValue;
+                System.out.println("Wybrany: "+wybrany.getText());
             }
         });
 
         ////////////////////////////////////////////////////////////////
+
+        ///////////////////////////ChoiceBox////////////////////////////
+        // słuzy do wybierania opcji z listy
+        //1. tworzymy liste co musi trafic
+        String [] listaWyboru = {"Pierwszy", "Drugi", "Trzeci", "Czwarty"};
+        ChoiceBox<String> choiceBox = new ChoiceBox<>();
+        choiceBox.setLayoutX(400);
+        choiceBox.setLayoutY(70);
+        // dodawanie do listy wyborów
+        choiceBox.getItems().addAll(listaWyboru);
+        // jak nasluchiwac chiceBoxa
+        choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                String wybor = listaWyboru[newValue.intValue()];
+                System.out.println("Wybrany z chiceBoxa wynik to :"+wybor);
+            }
+        });
+        ////////////////////////////////////////////////////////////////
+
+        //////////////////////ListView//////////////////////////////////
+
+        ////////////////////////////////////////////////////////////////K
+
 
         Group group = new Group();
         group.getChildren().add(label);
@@ -157,6 +183,7 @@ public class Kontrolki extends Application{
         group.getChildren().add(checkBox);
         group.getChildren().add(radioButtonPierwszy);
         group.getChildren().add(radioButtonDrugi);
+        group.getChildren().add(choiceBox);
         //group.getChildren().add(imageView);
 
         // tutaj mozęmy okreslic rozmiar
