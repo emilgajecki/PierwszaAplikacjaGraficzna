@@ -1,11 +1,14 @@
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -96,8 +99,53 @@ public class Kontrolki extends Application{
         PasswordField passwordField = new PasswordField();
         //ustawianie podpowiedzi
         passwordField.setPromptText("Wpisz haslo");
-        passwordField.setLayoutX(30);
-        passwordField.setLayoutX(100);
+        passwordField.setLayoutX(20);
+        passwordField.setLayoutY(40);
+        ////////////////////////////////////////////////////////////////
+
+        //////////////////////TextArea//////////////////////////////////
+        // tekst na wielie linii
+        TextArea textArea = new TextArea();
+        textArea.setLayoutX(20);
+        textArea.setLayoutY(160);
+        textArea.setPromptText("Wpisz tekst na wiele linii");
+        ////////////////////////////////////////////////////////////////
+
+        ///////////////////////CHECKBOX/////////////////////////////////
+        CheckBox checkBox = new CheckBox("Zaznacz CheckBox'a");
+        checkBox.setLayoutX(20);
+        checkBox.setLayoutY(70);
+
+        //ustawienie domyslnie zaznaczonego checkboxa
+        checkBox.setSelected(true);
+        //służy do sprawdzania czy zostało zaznaczone najlepiej w if
+        checkBox.isSelected();
+        ////////////////////////////////////////////////////////////////
+
+        ////////////////////RadioButton/////////////////////////////////
+        // służy do wielu zaznaczan np do ankiet (wiele wyborów)
+        RadioButton radioButtonPierwszy = new RadioButton("Wybór pierwszy");
+        radioButtonPierwszy.setLayoutX(180);
+        radioButtonPierwszy.setLayoutY(70);
+        // tak jak w checkBox - isSelected () i setSelected()
+
+        RadioButton radioButtonDrugi = new RadioButton("wybor drugi");
+        radioButtonDrugi.setLayoutX(300);
+        radioButtonDrugi.setLayoutY(70);
+
+        // tworzenie grup dla buttonow, aby wybrac odp - nie mozna zazanczyc kilku
+        ToggleGroup toggleGroup = new ToggleGroup();
+        radioButtonPierwszy.setToggleGroup(toggleGroup);
+        radioButtonDrugi.setToggleGroup(toggleGroup);
+
+        // dowiedzenie sie o zmianie w odp - nasłuchwianie
+        toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+
+            }
+        });
+
         ////////////////////////////////////////////////////////////////
 
         Group group = new Group();
@@ -105,6 +153,10 @@ public class Kontrolki extends Application{
         group.getChildren().add(button);
         group.getChildren().add(textField);
         group.getChildren().add(passwordField);
+        group.getChildren().add(textArea);
+        group.getChildren().add(checkBox);
+        group.getChildren().add(radioButtonPierwszy);
+        group.getChildren().add(radioButtonDrugi);
         //group.getChildren().add(imageView);
 
         // tutaj mozęmy okreslic rozmiar
