@@ -19,15 +19,17 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 
-public class Kontrolki extends Application{
+public class Kontrolki extends Application {
 
-    public static void main(String[] args) {launch(args);
+    public static void main(String[] args) {
+        launch(args);
 
     }
+
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) {
         //                                                pogrubienie
-        Font font = Font.font("Times New Roman", FontWeight.BOLD,16);
+        Font font = Font.font("Times New Roman", FontWeight.BOLD, 16);
 
         Color color = Color.web("#f06927");
 
@@ -47,16 +49,16 @@ public class Kontrolki extends Application{
 
         //////////////////////////IMAGEVIEW///////////////////////////////
         //ImageView - po pobraniu grafiki przciagamy ja do resources
-        Image image = new Image("obrazek.png");
-        ImageView imageView = new ImageView(image);
+        // Image image = new Image("obrazek.png");
+        // ImageView imageView = new ImageView(image);
         // przypisanie obrazku do labelki
-        label.setGraphic(imageView);
+        //label.setGraphic(imageView);
 
         //////////////////////////////////////////////////////////////////
 
         ////////////////////////////BUTTON////////////////////////////////
         //sekcja Button
-        Button button= new Button("Pierwszy klikalny przycisk");
+        Button button = new Button("Pierwszy klikalny przycisk");
 
         //zmiana pozycji przycisku
         button.setLayoutX(20);
@@ -109,6 +111,7 @@ public class Kontrolki extends Application{
         textArea.setLayoutX(20);
         textArea.setLayoutY(160);
         textArea.setPromptText("Wpisz tekst na wiele linii");
+        textArea.setMaxWidth(240);
         ////////////////////////////////////////////////////////////////
 
         ///////////////////////CHECKBOX/////////////////////////////////
@@ -144,7 +147,7 @@ public class Kontrolki extends Application{
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
                 // netoda reagujaca na zmiane - informuje nas o zmianie
                 RadioButton wybrany = (RadioButton) newValue;
-                System.out.println("Wybrany: "+wybrany.getText());
+                System.out.println("Wybrany: " + wybrany.getText());
             }
         });
 
@@ -153,7 +156,7 @@ public class Kontrolki extends Application{
         ///////////////////////////ChoiceBox////////////////////////////
         // słuzy do wybierania opcji z listy
         //1. tworzymy liste co musi trafic
-        String [] listaWyboru = {"Pierwszy", "Drugi", "Trzeci", "Czwarty"};
+        String[] listaWyboru = {"Pierwszy", "Drugi", "Trzeci", "Czwarty"};
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
         choiceBox.setLayoutX(400);
         choiceBox.setLayoutY(70);
@@ -164,15 +167,90 @@ public class Kontrolki extends Application{
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 String wybor = listaWyboru[newValue.intValue()];
-                System.out.println("Wybrany z chiceBoxa wynik to :"+wybor);
+                System.out.println("Wybrany z chiceBoxa wynik to :" + wybor);
             }
         });
         ////////////////////////////////////////////////////////////////
 
         //////////////////////ListView//////////////////////////////////
+        // lista wyswietlona w oknie
+        // musimy podac jakie typu bedzie to lista
+        ListView<String> listView = new ListView<>();
+        // dodoanei listy
+        listView.getItems().addAll(listaWyboru);
+        listView.setLayoutX(400);
+        listView.setLayoutY(100);
+        listView.setMaxHeight(70);
+        // mozęmy z listy wybrac i dowiedziec sie jaki element zostal wybrany
+        listView.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                String wybranyElement = listaWyboru[newValue.intValue()];
+                System.out.println("Wybrany z ListViev wynik to :" + wybranyElement);
+            }
+        });
+        ////////////////////////////////////////////////////////////////
 
-        ////////////////////////////////////////////////////////////////K
+        ///////////////////////ProgressBar//////////////////////////////
+        // uzywany w przypadku kiedy cos moze dluzej dziac aby uzytkownik nie myslal, ze cos nie dziala
+        ProgressBar progressBar = new ProgressBar();
+        progressBar.setLayoutX(10);
+        progressBar.setLayoutY(10);
+        // ustawianie poczatkowej wartosci - bez tego biega w lewo i prawo
+        // progressBar.setProgress(1.0);
 
+        ////////////////////////////////////////////////////////////////
+
+        ///////////////////////ProgressIndicator////////////////////////
+        // do progresu - kołowy
+        ProgressIndicator progressIndicator = new ProgressIndicator();
+        progressIndicator.setLayoutX(200);
+        progressIndicator.setLayoutY(10);
+        // ustawianie poczatkowej wartosci - bez tego kreci sie caly czas
+        //progressIndicator.setProgress(0.45);
+        ///////////////////////////////////////////////////////////////
+
+        ///////////////////////Slider//////////////////////////////////
+        // do przysowania tresci
+        // ustawianie minimalnej wartosic i maxymalenj - min,max, wartosc poczatkowa
+        Slider slider = new Slider(0, 100, 0);
+        slider.setLayoutX(300);
+        slider.setLayoutY(300);
+        // ustawianie szerokosci
+        slider.setPrefWidth(300);
+
+        // ustawienie pokazywania tikow (kreseczek pod)
+        slider.setShowTickMarks(true);
+        //labelki do tikow (doyslne)
+        slider.setShowTickLabels(true);
+        // zmiana parametrow - główny
+        slider.setMajorTickUnit(25);
+        // zmiana pamaterow - pobocznych
+        slider.setMinorTickCount(4);
+        // wpadanie w tiki
+        slider.setSnapToTicks(true);
+        // podbieranie wartosci i nasluchiwanie na tickach
+        slider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println("slider " + newValue.intValue());
+                // chowanie kontrolek po osiągnieciu 100 %
+                if(newValue.intValue() ==100){
+                    progressBar.setVisible(false);
+                    progressIndicator.setVisible(false);
+                } else {
+                    // operacje na progresach - przesowane paska postepu wraz z sliderem
+                    double progres = newValue.doubleValue() / 100;
+                    progressBar.setProgress(progres);
+                    progressIndicator.setProgress(progres);
+                }
+            }
+        });
+        ///////////////////////////////////////////////////////////////
+
+        //////////////OKAZYWANIE/CHOWANIE KONTROLEK////////////////////
+
+        ///////////////////////////////////////////////////////////////
 
         Group group = new Group();
         group.getChildren().add(label);
@@ -184,6 +262,10 @@ public class Kontrolki extends Application{
         group.getChildren().add(radioButtonPierwszy);
         group.getChildren().add(radioButtonDrugi);
         group.getChildren().add(choiceBox);
+        group.getChildren().add(listView);
+        group.getChildren().add(progressBar);
+        group.getChildren().add(progressIndicator);
+        group.getChildren().add(slider);
         //group.getChildren().add(imageView);
 
         // tutaj mozęmy okreslic rozmiar
