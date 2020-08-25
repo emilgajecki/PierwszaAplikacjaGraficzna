@@ -1,7 +1,12 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -29,18 +34,54 @@ public class Kontrolki extends Application{
         // ustawienia wilkosci czcionki
         //label.setFont(new Font(20));
         label.setFont(font);
-
         // ustawianie koloru dla labelki
         //label.setTextFill(Color.BLUE);
-
         // usatwianie koloru własnego dla Labelki
         // 1.   Color color = Color.web("#f06927");
         label.setTextFill(color);
 
+        //////////////////////////IMAGEVIEW///////////////////////////////
+        //ImageView - po pobraniu grafiki przciagamy ja do resources
+        Image image = new Image("obrazek.png");
+        ImageView imageView = new ImageView(image);
+        // przypisanie obrazku do labelki
+        label.setGraphic(imageView);
+
+        //////////////////////////////////////////////////////////////////
+
+        ////////////////////////////BUTTON////////////////////////////////
+        //sekcja Button
+        Button button= new Button("Pierwszy klikalny przycisk");
+
+        //zmiana pozycji przycisku
+        button.setLayoutX(20);
+        button.setLayoutY(100);
+        // ustawienie koloru na przycisku - tekst
+        button.setTextFill(color);
+        // ustawienie grafiki przypidanej do tekstu
+        //button.setGraphic(imageView);
+        // wyłączenie przycisku (true - wylaczony)
+        //button.setDisable(true);
+
+
+        //przechwyteywanie klikania na przycisku
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Klikam!");
+                button.setText("po kliknieciu zmienam nazwe na inna");
+
+            }
+        });
+        //////////////////////////////////////////////////////////////////
+
         Group group = new Group();
         group.getChildren().add(label);
+        group.getChildren().add(button);
+        //group.getChildren().add(imageView);
+
         // tutaj mozęmy okreslic rozmiar
-        Scene scene = new Scene(group,1900,1000);
+        Scene scene = new Scene(group);
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Aplikacja Kontrolki");
