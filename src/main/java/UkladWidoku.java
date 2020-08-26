@@ -109,6 +109,32 @@ public class UkladWidoku extends Application {
         flowPane.setPadding(new Insets(10));
         ////////////////////////////////
 
+        /////////GRIDPANE//////////////
+        // taka siatka - okreslamy gdzie chcemy osadzic
+        Button minusButton = new Button("-");
+        minusButton.setPrefSize(30,30);
+        Button plusButton = new Button("+");
+        plusButton.setPrefSize(30,30);
+        Label iloscLabel = new Label("1");
+        iloscLabel.setPadding(new Insets(0,10,0,10));
+        Button okButton = new Button("OK");
+        Button anulujButton = new Button("Anuluj");
+        // odzielania elementow - robi przestrzen
+        Pane pane = new Pane();
+        pane.setPrefWidth(50);
+
+        // wskazanie w ktorym wierszu chcemy wstawic eleement - zaczynamy od 0
+        GridPane gridPane = new GridPane();
+        // pierwsza liczba - indeks kolumny
+        // druga liczna  indeks wiersza
+        gridPane.add(minusButton, 0,0); //1 kolumna, 1 wiersz
+        gridPane.add(iloscLabel, 1,0); // 2 kolumna, 1 wiersz
+        gridPane.add(plusButton,2,0);// 3 kolumna, 1 wiersz
+        gridPane.add(pane,3,1); // 4 kolimna, wiersz
+        gridPane.add(okButton,4,1);// 5 kolumna, 2 wiersz
+        gridPane.add(anulujButton,5,1); // 6 kolumna,2 wiersz
+        ////////////////////////////////
+
         /////////BORDERPANE/////////////
         // ustawienie elementow na gora,dol,lewo,prawo
         BorderPane borderPane = new BorderPane();
@@ -116,6 +142,7 @@ public class UkladWidoku extends Application {
         borderPane.setLeft(vbox);
         borderPane.setCenter(stackPane);
         borderPane.setRight(flowPane);
+        borderPane.setBottom(gridPane);
 //        TextField textField = new TextField("Gora");
 //        borderPane.setTop(textField);
 //        TextField textField1 = new TextField("Dol");
@@ -127,7 +154,6 @@ public class UkladWidoku extends Application {
 //        TextField textField4 = new TextField("prawy");
 //        borderPane.setRight(textField4);
         ////////////////////////////////
-
 
         // nasz root - borderPane
         Scene scene = new Scene(borderPane , 800, 800);
