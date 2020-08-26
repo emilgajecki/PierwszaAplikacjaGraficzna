@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -135,14 +136,29 @@ public class UkladWidoku extends Application {
         gridPane.add(anulujButton,5,1); // 6 kolumna,2 wiersz
         ////////////////////////////////
 
+        /////////SCROLLPANE//////////////
+        // mozliwosc przewijania elementow
+
+        for (int i = 0; i<10;i++){
+            ImageView kopaPizzaImageView = new ImageView(new Image("obrazki/pizza/pizza-cztery-sery.png"));
+            flowPane.getChildren().add(kopaPizzaImageView);
+        }
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setMaxWidth(150);
+        // do scrolpane usawtimy flowPane
+        scrollPane.setContent(flowPane);
+        ////////////////////////////////
+
         /////////BORDERPANE/////////////
         // ustawienie elementow na gora,dol,lewo,prawo
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(hbox);
         borderPane.setLeft(vbox);
         borderPane.setCenter(stackPane);
-        borderPane.setRight(flowPane);
+        borderPane.setRight(scrollPane);
         borderPane.setBottom(gridPane);
+
 //        TextField textField = new TextField("Gora");
 //        borderPane.setTop(textField);
 //        TextField textField1 = new TextField("Dol");
@@ -154,6 +170,8 @@ public class UkladWidoku extends Application {
 //        TextField textField4 = new TextField("prawy");
 //        borderPane.setRight(textField4);
         ////////////////////////////////
+
+
 
         // nasz root - borderPane
         Scene scene = new Scene(borderPane , 800, 800);
